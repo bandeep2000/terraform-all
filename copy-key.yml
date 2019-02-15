@@ -1,0 +1,17 @@
+- hosts: all
+  become:        yes
+  become_method: sudo
+  tasks:
+    - name:  Copy key
+      when:  ansible_distribution == 'RedHat'
+      copy:
+        src: /Users/c5278791/.ssh/google_compute_engine
+        dest: key.pem
+        owner: root
+        mode: 0400
+    - name:  install appache
+      yum:
+        name: "{{ item }}"
+        state: latest
+      with_items:
+      - httpd

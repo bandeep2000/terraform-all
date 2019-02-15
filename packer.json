@@ -1,0 +1,22 @@
+{
+  "variables": {
+        "playbook": "copy-key.yml",
+         "account_file": "{{ env `SA_ACCOUNT_PATH` }}"
+   },
+  "builders": [
+    {
+      "type": "googlecompute",
+      "account_file": "{{ user `SA_ACCOUNT_PATH` }}",
+      "project_id": "sap-ariba-cobalt",
+      "source_image": "rhel-6-v20190116",
+      "image_name": "squid-ban-image-client",
+      "ssh_username": "c5278791",
+      "zone": "us-west1-b"
+    }],
+    "provisioners": [
+      {
+        "type": "ansible",
+        "playbook_file": "./{{user `playbook`}}"
+      }
+    ]
+}
